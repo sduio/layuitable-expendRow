@@ -1,0 +1,99 @@
+ 
+ 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>表格操作 - layuiexpendrow</title>
+        <link rel="stylesheet" href="../dist/css/iconfont/iconfont.css">
+        <link rel="stylesheet" href="../dist/css/layui.css">
+
+        <style>
+            /* 以下样式放置在通用css文件下编好 */
+            .layui-expend-row {
+                position: absolute;
+                right: 5px;
+                cursor: pointer;
+            }
+            .layui-expend-row:hover {
+                color: #5FB878;
+            }
+            .com-expend-nav {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+                line-height: 36px;
+                padding: 5px 0;
+                background: #fff;
+                border: 1px solid #dae3ea;
+                border-radius: 2px;
+                box-shadow: 0px 6px 10px rgba(220, 239, 255, 1);
+                z-index: 9999;
+            }
+            .com-expend-nav li:first-child {
+                color: #bbb;
+            }
+            .com-expend-nav li {
+                padding: 0 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <table id="demo" lay-filter="demo"></table>
+    </body>
+    <script src="../dist/layui.js" src="//layui.hcwl520.com.cn/layui-v2.4.5/layui.js" charset="utf-8"></script>
+    <script>
+        layui.config({
+            base: 'extends/'
+        }).extend({
+            expendrow: 'expendrow'
+        }).use(['table', 'expendrow'], function(){
+            var table = layui.table,
+                expendrow = layui.expendrow();
+            var data = [
+                {
+                    id: 0,
+                    name: 'uzi',
+                    team: 'RNG',
+                    site: 'adc',
+                    state: '退役'
+                },
+                {
+                    id: 1,
+                    name: 'clearlove7',
+                    team: 'EDG',
+                    site: 'jug',
+                    state: '退役'
+                },
+                {
+                    id: 2,
+                    name: 'faker',
+                    team: 'SKT',
+                    site: 'mid',
+                    state: '在役'
+                }
+            ];
+            table.render({
+                elem: '#demo',
+                data: data,
+                cols: [[
+                    { field:'id', width: 200, title:'id' },
+                    { field:'name', minWidth: 200, title:'姓名' },
+                    { field:'team', minWidth: 200, title:'战队' },
+                    { field: 'site', minWidth: 120, title: '位置' },
+                    { field: 'state', width: 100, title: '状态' },
+                    { field: 'operate', width: 90, title: '操作<i class="layui-expend-row iconfont icon-xitongshezhi"></i>', templet: function (d) {
+                    } }
+                ]],
+                limit: 10,
+                limits: [10, 20, 30, 50],
+                page: true, // 开启分页
+                done: function (res) {
+                    expendrow.expendRow();
+                }
+            })
+        });
+    </script>
+</html>
